@@ -1,0 +1,204 @@
+
+/* =====================================================
+   Bila Tarım — VIP UI v10 (non-destructive override)
+   Drop this file AFTER all existing CSS to cleanly modernize UI
+   ===================================================== */
+
+/* ========== THEME TOKENS ========== */
+:root{
+  --mint:#1A635A;
+  --mint-2:#145149;
+  --text:#eaf7f3;
+  --text-muted:#cfe8e2;
+  --bg-1:#0f1f1b;
+  --bg-2:#132521;
+  --bg-3:#0e1a17;
+  --glass-bg: rgba(26,99,90,0.08);
+  --glass-card: rgba(12,20,18,0.32);
+  --glass-brd: rgba(26,99,90,0.28);
+  --glass-edge: rgba(26,99,90,0.55);
+  --shadow-lg: 0 12px 28px rgba(0,0,0,0.24);
+  --shadow-md: 0 8px 18px rgba(0,0,0,0.22);
+  --radius: 14px;
+  --blur-desktop: 16px;
+  --blur-tablet: 12px;
+  --blur-mobile: 8px;
+}
+
+/* Global background & text */
+body{
+  background:
+    radial-gradient(900px 600px at 12% -8%, rgba(26,99,90,0.18), transparent 55%),
+    linear-gradient(160deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3)) !important;
+  color: var(--text) !important;
+}
+
+/* Avoid jitter if user prefers low motion */
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; animation: none !important; }
+}
+
+/* ========== HEADER ========== */
+.header, header, .topbar, .logo-bar{
+  background: rgba(15,31,27,0.55) !important;
+  color: var(--text) !important;
+  -webkit-backdrop-filter: blur(var(--blur-desktop));
+  backdrop-filter: blur(var(--blur-desktop));
+  border-bottom: 2px solid rgba(26,99,90,0.55) !important;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.header:hover, header:hover, .topbar:hover, .logo-bar:hover{
+  border-bottom-color: rgba(26,99,90,0.85) !important;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.26), 0 0 14px rgba(26,99,90,0.35);
+}
+
+/* Admin button keeps position but with refined glass style */
+.header .admin-btn{
+  background: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  backdrop-filter: blur(6px) saturate(140%) !important;
+}
+
+/* ========== SEARCH BOX (brace fix, consistent visuals) ========== */
+.search-box{
+  position: absolute;
+  top: 28px; right: 40px;
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--mint) 0%, var(--mint-2) 100%) !important;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+  padding: 10px 16px 10px 40px;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  will-change: transform;
+}
+.search-box::before{
+  content:"";
+  position:absolute; left:14px; width:18px; height:18px;
+  background: no-repeat center/contain url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>');
+  opacity:.95;
+}
+.search-box:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.search-box input{
+  background: transparent; border: none; outline: none;
+  color: #fff; font-size: 15px; padding: 8px 2px; width: 220px;
+}
+.search-box:focus-within input{ width: 260px; }
+.search-box input::placeholder{ color: #c8e6c9; }
+
+@media (max-width: 600px){
+  .search-box{ position: static; margin: 10px auto; width: 92%; }
+  .search-box input{ width: 100% !important; }
+}
+
+/* ========== CATEGORY HEADER ========== */
+.kategori{ width: 96%; margin: 0 auto 24px; }
+.kategori-header{
+  position: relative;
+  background: var(--glass-bg) !important;
+  -webkit-backdrop-filter: blur(var(--blur-desktop));
+  backdrop-filter: blur(var(--blur-desktop));
+  border: 1px solid var(--glass-brd) !important;
+  border-top: 1px solid rgba(255,255,255,0.10) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.26) !important;
+  color: var(--text) !important;
+  padding: 14px 18px !important;
+  border-radius: var(--radius) !important;
+  font-family: 'Poppins','Inter',sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: .3px;
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg) !important;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.kategori-header::before{
+  content:""; position:absolute; left:0; top:0; height:100%; width:3px;
+  background: var(--glass-edge);
+  border-radius: 3px 0 0 3px;
+}
+.kategori-header:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+}
+.kategori-header .ok{
+  margin-left: auto; color:#fff; font-weight:700; font-size:20px;
+  transition: transform .25s ease;
+}
+.kategori-header:hover .ok{ transform: rotate(90deg); }
+
+/* ========== PRODUCT GRID ========== */
+.kategori .urunler{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  gap: 18px !important;
+  padding: 14px 6px !important;
+  justify-items: center !important;
+  align-items: start !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.urun{
+  width: 100%; max-width: 240px; min-height: 300px;
+  background: var(--glass-card) !important;
+  -webkit-backdrop-filter: blur(var(--blur-desktop));
+  backdrop-filter: blur(var(--blur-desktop));
+  border: 1px solid var(--glass-brd) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: 10px !important;
+  text-align: center !important;
+  transition: transform .2s ease, filter .2s ease !important;
+}
+.urun:hover{ transform: translateY(-4px); filter: brightness(1.03); }
+.urun img{
+  width: 100% !important; height: 180px !important;
+  object-fit: contain !important; background: #0f1513 !important;
+  border-radius: 10px !important; padding: 6px !important;
+}
+.urun p{ margin: 6px 0 0 !important; color: var(--text) !important; }
+.urun p:nth-of-type(2){ color: var(--text-muted) !important; font-size: 13px !important; }
+.urun p:nth-of-type(3){ font-weight: 700 !important; color: var(--mint) !important; font-size: 15px !important; }
+
+@media (max-width:1024px){
+  .header, header, .topbar, .logo-bar, .kategori-header, .urun{
+    -webkit-backdrop-filter: blur(var(--blur-tablet));
+    backdrop-filter: blur(var(--blur-tablet));
+    box-shadow: var(--shadow-md) !important;
+  }
+}
+@media (max-width:600px){
+  .urun{ max-width: 200px; min-height: 260px; }
+  .urun img{ height: 150px !important; }
+}
+
+/* ========== PRODUCT MODAL / BANNER ========== */
+.modal, #urun-banner, #product-modal-root{
+  /* ensure clicking outside closes via JS; visuals unified */
+}
+/* Mobile image container (no crop) */
+@media (max-width:600px){
+  #product-modal-root div{
+    width: 100vw !important;
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    border-radius: 0 !important;
+  }
+  #product-modal-root img{
+    width: 100% !important; height: 260px !important;
+    object-fit: contain !important;
+    background: #0f1513 !important;
+    border-radius: 10px !important;
+    padding: 8px !important;
+  }
+}
+
+/* ========== UTILITIES ========== */
+.hidden{ display: none !important; }
+.no-scroll{ overflow: hidden !important; }

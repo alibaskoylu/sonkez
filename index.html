@@ -868,13 +868,12 @@ header img, .logo-bar img {
 
 
 
-
-
-<!-- Bila Glass Theme override v10: Header logo band fix (force clear hidden backgrounds) -->
+<!-- Bila Glass Theme override v9: Midnight Mint + Header Semi-Glass + Accent Hover Glow -->
 <style id="bila-glass-theme">
   :root{
     --bg-mm-1:#0f1f1b; --bg-mm-2:#132521; --bg-mm-3:#0e1a17;
     --bg-mm-glow: rgba(26,99,90,0.18);
+
     --mint:#1A635A; --mint-2:#145149;
     --glass-bg: rgba(26,99,90,0.08);
     --glass-bg-card: rgba(12,20,18,0.32);
@@ -883,14 +882,15 @@ header img, .logo-bar img {
     --glass-shadow: 0 12px 28px rgba(0,0,0,0.24);
     --glass-shadow-mobile: 0 8px 18px rgba(0,0,0,0.18);
     --blur-desktop: 18px; --blur-tablet: 14px; --blur-mobile: 9px;
+
     --mint-glow: 0 0 10px rgba(26,99,90,0.28), 0 0 24px rgba(26,99,90,0.16);
     --text-color:#eaf7f3; --text-muted:#cfe8e2;
   }
 
-  /* Background (keep Midnight Mint lighter) */
+  /* Midnight Mint (lighter) background */
   body{
     background:
-      radial-gradient(1000px 700px at 12% 5%, var(--bg-mm-glow), transparent 55%),
+      radial-gradient(1000px 700px at 10% -10%, var(--bg-mm-glow), transparent 55%),
       linear-gradient(160deg, var(--bg-mm-1), var(--bg-mm-2) 45%, var(--bg-mm-3));
     background-attachment: fixed;
     color: var(--text-color) !important;
@@ -901,34 +901,25 @@ header img, .logo-bar img {
     color: var(--text-color) !important;
     text-shadow: var(--mint-glow);
   }
+  .meta, .urun p:nth-of-type(2), small, .note{ color: var(--text-muted) !important; }
 
-  /* Header semi-glass with mint accent (as chosen earlier) */
-  .header, header, .topbar, .logo-bar{
-    background: rgba(15,31,27,0.55) !important;
+  /* Header: Semi-Glass + Mint Accent Line + Hover Glow */
+  .header, .topbar, .logo-bar{
+    background: rgba(15, 31, 27, 0.55) !important; /* semi-glass base */
     -webkit-backdrop-filter: blur(var(--blur-desktop));
     backdrop-filter: blur(var(--blur-desktop));
-    border-bottom: 2px solid rgba(26,99,90,0.55) !important;
+    border-bottom: 2px solid rgba(26,99,90,0.55) !important; /* mint accent */
     box-shadow: 0 8px 18px rgba(0,0,0,0.22);
     position: relative;
     transition: border-color .25s ease, box-shadow .25s ease;
   }
-  .header:hover, header:hover, .topbar:hover, .logo-bar:hover{
+  /* Hover/active glow for accent line */
+  .header:hover, .topbar:hover, .logo-bar:hover{
     border-bottom-color: rgba(26,99,90,0.85) !important;
     box-shadow: 0 10px 22px rgba(0,0,0,0.26), 0 0 14px rgba(26,99,90,0.35);
   }
 
-  /* >>> Critical fix: kill any dark background around logo area */
-  .logo, .header .logo, header .logo, .logo *, .logo-bar, .logo-bar *{
-    background: transparent !important;
-    background-image: none !important;
-    box-shadow: none !important;
-  }
-  .logo img, header .logo img{
-    background: transparent !important;
-    mix-blend-mode: normal !important;
-  }
-
-  /* Category header (kept) */
+  /* CATEGORY HEADER (kept) */
   html body .kategori .kategori-header,
   body .kategori > .kategori-header,
   body .kategori-header{
@@ -954,7 +945,7 @@ header img, .logo-bar img {
   }
   .kategori-header .ok{ color:#fff !important; font-weight:700; font-size:20px; text-shadow:none; }
 
-  /* Product cards (kept) */
+  /* PRODUCT CARDS (kept) */
   .urun{
     background: var(--glass-bg-card) !important;
     -webkit-backdrop-filter: blur(var(--blur-desktop));
@@ -967,16 +958,16 @@ header img, .logo-bar img {
   .urun p{ color: var(--text-color) !important; text-shadow: var(--mint-glow); }
   .urun p:nth-of-type(2){ color: var(--text-muted) !important; }
 
-  /* Responsive blur */
+  /* Responsive blur for perf */
   @media (max-width: 1024px){
-    .kategori-header, .urun, .header, header, .topbar, .logo-bar{
+    .kategori-header, .urun, .header, .topbar, .logo-bar{
       -webkit-backdrop-filter: blur(var(--blur-tablet));
       backdrop-filter: blur(var(--blur-tablet));
       box-shadow: var(--glass-shadow-mobile) !important;
     }
   }
   @media (max-width: 768px){
-    .kategori-header, .urun, .header, header, .topbar, .logo-bar{
+    .kategori-header, .urun, .header, .topbar, .logo-bar{
       -webkit-backdrop-filter: blur(var(--blur-mobile));
       backdrop-filter: blur(var(--blur-mobile));
       box-shadow: var(--glass-shadow-mobile) !important;
@@ -984,25 +975,8 @@ header img, .logo-bar img {
   }
 </style>
 
-<script>
-// JS cleaner: if any inline style forces a dark background around the logo area, remove it.
-document.addEventListener('DOMContentLoaded', function(){
-  try{
-    var logoCand = document.querySelector('.logo') || document.querySelector('.logo-bar') ||
-                   document.querySelector('header .logo') ||
-                   Array.from(document.images).find(img => /logo/i.test(img.alt||'') || /logo/i.test(img.src||''));
-    if(logoCand){
-      var el = logoCand;
-      for(var i=0;i<3 && el;i++){
-        el.style.background = 'transparent';
-        el.style.backgroundImage = 'none';
-        el = el.parentElement;
-      }
-    }
-  }catch(e){}
-});
-</script>
 
+<link rel="stylesheet" href="vip_v10.css">
 </head>
 <body>
 
@@ -1164,5 +1138,7 @@ header, .topbar, .logo-bar { background: transparent !important; }
 .logo img { width: 180px !important; height: auto !important; filter: none !important; }
 </style>
 
+
+<script src="vip_v10.js"></script>
 </body>
 </html>
